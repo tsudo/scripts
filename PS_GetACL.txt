@@ -1,0 +1,1 @@
+ Get-Acl C:\folder | select -ExpandProperty AccessToString | format-List
