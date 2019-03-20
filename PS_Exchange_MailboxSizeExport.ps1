@@ -1,10 +1,20 @@
-#       Author: Keith S. Crawford 
-#       Twitter: @tsudo
-#		Website: KeithCrawford.me
-#		Git: https://github.com/tsudo
-#       Date: 20161216
-#       Description: All Mailbox Size Export from Exchange, sorted by Total Size Descending 2010/2013/2016.
-#       Version: 1.1
-#       Disclaimer: Use it an your own risk.
+############################################
+# Title: PS_Exchange_MailboxSizeExport
+# Desc: Get list of Exchange Mailboxes and their Size
+# LastMod: 20190320
+# Author: Keith Crawford // @tsudo on Github & Twitter
+############################################
 
-Get-Mailbox -Resultsize Unlimited | Get-MailboxStatistics | select DisplayName,Database,Totalitemsize,Totaldeleteditemsize | Sort-Object TotalItemSize -Descending | export-csv c:\temp\MailboxSize-$((Get-Date).ToString('yyyyMMdd')).csv -NoTypeInformation
+############################################
+# DISCLAIMER: Use it an your own risk.
+# Licensed under MIT License https://github.com/tsudo/scripts/blob/master/License.md
+############################################
+
+######################
+# Variables Global
+$Now = Get-Date
+$ResultFile = "C:\temp\ExchangeMailboxSize" + $Now.ToString("_yyyyMMdd_HH-mm-ss") + ".csv"
+
+######################
+# SCRIPT
+Get-Mailbox -Resultsize Unlimited | Get-MailboxStatistics | select DisplayName,Database,Totalitemsize,Totaldeleteditemsize | Sort-Object TotalItemSize -Descending | export-csv $ResultFile -NoTypeInformation
